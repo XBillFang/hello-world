@@ -10,12 +10,12 @@ test push to github
 4.创建文件夹TestGit
 5.进入TestGit 右键选git Bash Here
 6.进入目录$ cd ~/.ssh
-7.创建sshkey ssh-keygen -t rsa -C "boutousei@gmail.com"
+7.创建sshkey ssh-keygen -t rsa -C "b******i@gmail.com"
 8./.ssh目录在cygwinhome文件夹内 打开生成的公共密钥id_rsa.pub
 9.拷贝id_rsa.pub内所有内容 复制到github->setting->SSH Key里
 10.测试是否连接成功 git git@github.com
 11.设置用户信息 git config --global user.name "xbill"
-                git config --global user.email "boutousei@gmail.com"
+                git config --global user.email "b******i@gmail.com"
 12.初始化 git init
 13.添加远程主机 git remote add helloworld git@github.com:XBillFang/hello-world.git
 14.复制到本地 git clone git@github.com:XBillFang/hello-world.git
