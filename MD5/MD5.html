@@ -22,33 +22,29 @@ $(document).ready(function(){
 
         if("3be043014dec4bca29c01d8802ed292d" == md5(userName) &&
             "ca526eec71b66549f2b01a23ec0b8ece" == md5(passWord)){
-            // WordsA = WordsA.replace(/@/g, passWord.substr(1, 1));
-            // WordsA = WordsA.replace(/\$/g, passWord.substr(3, 1));
-            // WordsA = WordsA.replace(/#/g, passWord.substr(5, 1));
-            // var newWordsA = unescape(WordsA);
-            // $("#main").fadeOut();
-            // $("#content").html(newWordsA);
             getDecryptResume(passWord, WordsA);
         } else if("8f43d75cc76f8d6ea49b67e618e678a0" == md5(userName) &&
             "158ec274fc60981bde7ad54cf7d44f76" == md5(passWord)){
-            // WordsB = WordsB.replace(/@/g, passWord.substr(1, 1));
-            // WordsB = WordsB.replace(/\$/g, passWord.substr(3, 1));
-            // WordsB = WordsB.replace(/#/g, passWord.substr(5, 1));
-            // var newWordsB = unescape(WordsB);
-            // $("#main").fadeOut();
-            // $("#content").html(newWordsB);
             getDecryptResume(passWord, WordsB);
         }
     });
 });
 
 function getDecryptResume(password, encryptResume) {
-    encryptResume = encryptResume.replace(/@/g, password.substr(1, 1));
-    encryptResume = encryptResume.replace(/\$/g, password.substr(3, 1));
-    encryptResume = encryptResume.replace(/#/g, password.substr(5, 1));
-    var decryptResume = unescape(encryptResume);
-    $("#main").fadeOut();
-    $("#content").html(decryptResume);
+    $.getJSON("js/" + md5(md5(password)).substr(0, 8) + ".json", function(data){
+        var $jsontip = $("#content");
+        var resumeContent;
+        $jsontip.empty();
+        $.each(data,function(infoIndex, info){  
+            resumeContent = info["content"];
+        })
+        resumeContent = resumeContent.replace(/@/g, password.substr(1, 1));
+        resumeContent = resumeContent.replace(/\$/g, password.substr(3, 1));
+        resumeContent = resumeContent.replace(/#/g, password.substr(5, 1));
+        var decryptResume = unescape(resumeContent);
+        $("#main").fadeOut();
+        $jsontip.html(decryptResume);
+    })
 }
 </script>
 </head>
