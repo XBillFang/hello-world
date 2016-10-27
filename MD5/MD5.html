@@ -3,16 +3,14 @@
 <head>
 <meta charset="utf-8">
 <title>MD5</title>
-<script type="text/javascript" src="jquery.min.js"></script>
-<script type="text/javascript" src="md5.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/md5.js"></script>
 <script type="text/javascript">
-//var Words ="%3Clabel%3E%u5BC6%u7801%u6B63%u786E%u540E%u663E%u793A%u5185%u5BB9%3C/label%3E";
-var Words ="#3Clabel#3E#u5BC6#u7801#u6B63#u786E#u540E#u663E#u793A#u5185#u5BB9#3C/label#3E";
+//var WordsA ="%3Clabel%3E%u5BC6%u7801%u6B63%u786E%u540E%u663E%u793A%u5185%u5BB9A%3C/label%3E";
+//var WordsB ="%3Clabel%3E%u5BC6%u7801%u6B63%u786E%u540E%u663E%u793A%u5185%u5BB9B%3C/label%3E";
+var WordsA ="@3Cl$b#l@3E@u5BC6@u7801@u6B63@u786E@u540E@u663E@u793A@u5185@u5BB9A@3C/l$b#l@3E";
+var WordsB ="@3Cl$b#l@3E@u5BC6@u7801@u6B63@u786E@u540E@u663E@u793A@u5185@u5BB9B@3C/l$b#l@3E";
 $(document).ready(function(){
-
-    var obj = {};
-    Words.split('').sort().join('').replace(/(.)(\1+)?/g, function(m,k){obj[k] = m.length});
-    console.log(obj);
 
     $("#login").click(function(){
         var userName = $("#username").val();
@@ -22,14 +20,36 @@ $(document).ready(function(){
         $("#showPassword").text(passWord);
         $("#showPasswordMD5").text(md5(passWord));
 
-        if("fdc8b16de5a5b566a034fafb20d09da9" == md5(userName) &&
-            "d9747143703aedecf1fa31a1d13385e2" == md5(passWord)){
-            Words = Words.replace(/#/g,userName.substring(0, 1))
-            var newWords = unescape(Words);
-            $("#content").html(newWords);
+        if("3be043014dec4bca29c01d8802ed292d" == md5(userName) &&
+            "ca526eec71b66549f2b01a23ec0b8ece" == md5(passWord)){
+            // WordsA = WordsA.replace(/@/g, passWord.substr(1, 1));
+            // WordsA = WordsA.replace(/\$/g, passWord.substr(3, 1));
+            // WordsA = WordsA.replace(/#/g, passWord.substr(5, 1));
+            // var newWordsA = unescape(WordsA);
+            // $("#main").fadeOut();
+            // $("#content").html(newWordsA);
+            getDecryptResume(passWord, WordsA);
+        } else if("8f43d75cc76f8d6ea49b67e618e678a0" == md5(userName) &&
+            "158ec274fc60981bde7ad54cf7d44f76" == md5(passWord)){
+            // WordsB = WordsB.replace(/@/g, passWord.substr(1, 1));
+            // WordsB = WordsB.replace(/\$/g, passWord.substr(3, 1));
+            // WordsB = WordsB.replace(/#/g, passWord.substr(5, 1));
+            // var newWordsB = unescape(WordsB);
+            // $("#main").fadeOut();
+            // $("#content").html(newWordsB);
+            getDecryptResume(passWord, WordsB);
         }
     });
-}); 
+});
+
+function getDecryptResume(password, encryptResume) {
+    encryptResume = encryptResume.replace(/@/g, password.substr(1, 1));
+    encryptResume = encryptResume.replace(/\$/g, password.substr(3, 1));
+    encryptResume = encryptResume.replace(/#/g, password.substr(5, 1));
+    var decryptResume = unescape(encryptResume);
+    $("#main").fadeOut();
+    $("#content").html(decryptResume);
+}
 </script>
 </head>
 
@@ -49,7 +69,9 @@ $(document).ready(function(){
         <label>密码加密后：</label><span id="showPasswordMD5"></span>
    </div>
    <br/>
-   <div id="content"></div>
+</div>
+<div id="content">
+   
 </div>
 </body>
 </html>
